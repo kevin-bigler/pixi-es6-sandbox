@@ -1,0 +1,24 @@
+{
+  "name": "pixi-es6-sandbox",
+  "version": "1.0.0",
+  "description": "Pixi.js with ES6, Sandbox playground",
+  "main": "app.js",
+  "scripts": {
+    "test": "start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevin-bigler/pixi-es6-sandbox.git"
+  },
+  "author": "Kevin Bigler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kevin-bigler/pixi-es6-sandbox/issues"
+  },
+  "homepage": "https://github.com/kevin-bigler/pixi-es6-sandbox#readme",
+  "dependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.3.2"
+  }
+}
