@@ -4,8 +4,9 @@
   "description": "Pixi.js with ES6, Sandbox playground",
   "main": "app.js",
   "scripts": {
-    "start": "webpack-dev-server --inline --hot",
-    "build": "webpack"
+    "start": "webpack-dev-server --content-base src --inline --hot",
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "babel-core": "^6.24.0",
     "babel-loader": "^6.4.1",
     "babel-preset-es2015": "^6.24.0",
+    "babel-preset-stage-2": "^6.22.0",
     "webpack": "^2.3.3",
     "webpack-dev-server": "^2.4.2"
   }
