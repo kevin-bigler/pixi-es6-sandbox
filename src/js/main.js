@@ -1,19 +1,19 @@
-import TestDependancy, {nintendo as coolClub} from './TestDependancy';
+import GreatDane from './GreatDane';
 
-let foo = 'baz';
-let xyz = '123';
-// test
-let another = 'another';
+console.log('');
+console.log('');
+console.log('');
+console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
+console.log('MY AWESOME APP');
+console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-');
+console.log('');
 
-console.log(foo + ' is awesome! ');
 
-console.log(`but is ${xyz} awesome?`);
+const cora = new GreatDane();
+console.log('Cora', cora);
 
-let {x,y,z} = {x:'a',y:'2',z:42};
+const river = new GreatDane({color:'harlequin'});
+console.log('River', river);
 
-console.log(`x: ${x}`);
-console.log(`y: ${y}`);
-console.log(`z: ${z}`);
-
-console.log(`TestDependancy: ${TestDependancy}`);
-console.log(`nintendo is: ${coolClub}`);
+cora.bark();
+river.bark();

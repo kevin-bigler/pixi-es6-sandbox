@@ -28,3 +28,8 @@ or other modules loaded by main.js (directly or indirectly)
 Edit src/index.html
 
 Enjoy!
+
+
+Useful Info:
+To filter out webpack's console messages, use this regex in e.g. chrome's console
+^(?!.*?\[[\w]*\])
