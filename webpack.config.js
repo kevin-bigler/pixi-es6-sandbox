@@ -1,4 +1,6 @@
 var path = require('path');
+var webpack = require('webpack');
+// var PIXI = require('imports-loader?this=>window!./node_modules/pixi.js');
 
 module.exports = {
 
@@ -15,6 +17,7 @@ module.exports = {
 
   module: {
     loaders: [
+
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
@@ -27,10 +30,30 @@ module.exports = {
       //     test: /\.scss$/,
       //     loader: 'style-loader!css-loader!sass-loader'
       // }
-    ] //loaders
+    ], //loaders,
+        // post-loaders:
+	      rules: [
+          {
+            test: require.resolve('pixi.js'),
+            use: 'imports-loader?this=>window'
+          },
+          {
+            test: require.resolve('pixi.js'),
+            use:'exports-loader?PIXI=window.PIXI'
+          }
+          // {
+          //   enforce: 'post',
+          //   include: path.resolve(__dirname, 'node_modules/pixi.js'),
+          //   loader: 'transform-loader?brfs'
+          // }
+        ]
   }, //module
 
   plugins: [
+    new webpack.ProvidePlugin({
+    	PIXI: "PIXI",
+    	// "window.PIXI": "PIXI"
+    })
   ],
 
 
