@@ -4,11 +4,13 @@ module.exports = {
 
   context: path.join(__dirname, "app"),
 
+  //define entry point
   entry: './js/main.js',
 
+  //define output point
   output: {
-    path: __dirname + "/app/",
-    filename: 'app.js'
+      path: __dirname + "/app/",
+      filename: 'app.js'
   },
 
   module: {
@@ -18,15 +20,19 @@ module.exports = {
         exclude: /(node_modules)/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'stage-2']
+            presets: ['es2015', 'stage-2']
         }
       }
-    ],
-    // post-loaders etc
-    rules: []
-  },
+      // {
+      //     test: /\.scss$/,
+      //     loader: 'style-loader!css-loader!sass-loader'
+      // }
+    ] //loaders
+  }, //module
 
-  plugins: [],
+  plugins: [
+  ],
+
 
   devtool: "inline-sourcemap"
 
