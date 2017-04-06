@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
-import {Application} from 'pixi.js';
-import GreatDane from './GreatDane2.js';
-import './GameEngine.js';
+// import {Application} from 'pixi.js';
+// import GreatDane from './GreatDane2.js';
+import GameEngine from './GameEngine.js';
 
 console.log('');
 console.log('');
@@ -13,6 +13,5 @@ console.log('');
 console.log('');
 
 
-
-const cora = new GreatDane({color:'fawn merle'});
-cora.bark();
+const gameEngine = new GameEngine();
+gameEngine.initialize();
