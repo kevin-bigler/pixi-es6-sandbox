@@ -1,5 +1,4 @@
-// import PIXI from '../../node_modules/pixi.js';
-var PIXI = require('pixi.js');
+import * as PIXI from 'pixi.js';
 
 console.log('');
 console.log('');
