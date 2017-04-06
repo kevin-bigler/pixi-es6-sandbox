@@ -22,10 +22,10 @@ C. For bundle file generation, updating upon saving any files:
 npm run watch
 
 
-Edit src/js/main.js
+Edit app/js/main.js
 or other modules loaded by main.js (directly or indirectly)
 
-Edit src/index.html
+Edit app/index.html
 
 Enjoy!
 
