@@ -2,8 +2,8 @@ import Piece from './Piece.js';
 
 export default class SquarePiece extends Piece {
 	dataByRotation =
-		[	// 0
-			{
+		[
+			{	// 0
 				width: 2,
 				height: 2
 				squares: [
@@ -11,9 +11,7 @@ export default class SquarePiece extends Piece {
 					[1,1]
 				]
 			},
-		],
-		[ // 1
-			{
+			{	// 1
 				width: 2,
 				height: 2
 				squares: [
@@ -21,9 +19,7 @@ export default class SquarePiece extends Piece {
 					[1,1]
 				]
 			},
-		],
-		[ // 2
-			{
+			{	// 2
 				width: 2,
 				height: 2
 				squares: [
@@ -31,9 +27,7 @@ export default class SquarePiece extends Piece {
 					[1,1]
 				]
 			},
-		],
-		[ // 3
-			{
+			{	// 3
 				width: 2,
 				height: 2
 				squares: [

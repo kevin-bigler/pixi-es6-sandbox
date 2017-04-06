@@ -7,10 +7,18 @@ export default class Artist {
 	static appHeight = 600
 
 	lightGreen = 0x1fed04
-	squareColor = 0xffffff
-	squareSize = 100	// used for width and height
+	white = 0xffffff
+
+	fillColor = this.lightGreen
+	clearColor = this.white
+	squareColor = this.clearColor
+
+	squareSize = 0	// used for width and height
 	squares = []
 	squareTexture = null
+
+	squaresWide = 0;
+	squaresHigh = 0;
 
 	app = null
 
@@ -18,7 +26,13 @@ export default class Artist {
 		this.app = app;
 	}
 
-	initialize() {
+	initialize({squaresWide, squaresHigh}) {
+
+		this.squaresWide = squaresWide;
+		this.squaresHigh = squaresHigh;
+
+		this.squareSize = this.calculateSquareSize({appWidth:Artist.appWidth, appHeight:Artist.appHeight, squaresWide, squaresHigh});
+		console.log(`squareSize calculated: ${this.squareSize}`);
 
 		this.initSquares();
 
@@ -26,11 +40,16 @@ export default class Artist {
 
 		// TODO move this part to the GameEngine or something (wherever the data is handled for the squares and their states)
 		var tetrisShapes = ['I', 'S', 'Z', '3', 'E', 'L', 'J'];
-		this.drawTetrisShape(2, 2, 'I');
+		this.drawTetrisShape(4, 1, 'I');
 	}
 
-	tintSquare(x, y, color) {
-		this.squares[y][x].tint = color;
+	calculateSquareSize({appWidth, appHeight, squaresWide, squaresHigh}) {
+		let fitWidth = Math.floor(appWidth / squaresWide);
+		let fitHeight = Math.floor(appHeight / squaresHigh);
+		if (fitWidth > fitHeight)
+			return fitHeight;
+		else
+			return fitWidth;
 	}
 
 	initSquares() {
@@ -42,10 +61,10 @@ export default class Artist {
 		this.squareTexture = square.generateTexture();
 
 		// draw the game board squares
-		for (var y = 0; y < Math.floor(Artist.appHeight / this.squareSize); y++) {
+		for (var y = 0; y < this.squaresHigh; y++) {
 		  // do a row
 		  let row = [];
-		  for (var x = 0; x < Math.floor(Artist.appWidth / this.squareSize); x++) {
+		  for (var x = 0; x < this.squaresWide; x++) {
 		    let squareSprite = this.createSquareSprite(x * this.squareSize, y * this.squareSize, this.squareSize);
 		    this.app.stage.addChild(squareSprite);
 		    row.push(squareSprite);
@@ -62,9 +81,6 @@ export default class Artist {
 		squareSprite.width = size;
 		squareSprite.height = size;
 
-		// set a random tint
-		// squareSprite.tint = Math.random() * 0xFFFFFF;
-
 		return squareSprite;
 	}
 
@@ -72,7 +88,6 @@ export default class Artist {
 		var square = new PIXI.Graphics();
 		// set the lineStyle to 0 so the square doesn't have an outline
 		// square.lineStyle(0);
-		// square.lineStyle(2, 0x0000FF, 1);
 		square.lineStyle(2, 'black', 1);
 		square.beginFill(color, 1);
 		square.drawRect(x, y, size, size);
@@ -82,16 +97,51 @@ export default class Artist {
 
 	drawTetrisShape(x, y, shape) {
 		if (shape == 'I') {
-			this.tintSquare(x, y, this.lightGreen);
-			this.tintSquare(x, y+1, this.lightGreen);
-			this.tintSquare(x, y+2, this.lightGreen);
-			this.tintSquare(x, y+3, this.lightGreen);
+			this.fillSquare(x, y);
+			this.fillSquare(x, y+1);
+			this.fillSquare(x, y+2);
+			this.fillSquare(x, y+3);
 		}
 	}
 
-	// TODO
-	drawSquares(squaresData) {
+	drawSquares(gameBoard) {
+		console.log('Artist.drawSquares()');
+		for (let x = 0; x < this.squaresWide; x++) {
+			for (let y = 0; y < this.squaresHigh; y++) {
+				// console.log(`iter: ${x}, ${y}`);
+				if (gameBoard.squareIsOpen(x, y)) {
+					this.clearSquare(x, y);
+				} else {
+					console.log(`found a square to be filled: ${x}, ${y}`);
+					this.fillSquare(x, y);
+				}
+			}
+		}
+	}
 
+	fillSquare(x, y) {
+		console.log('Artist.fillSquare()', `${x}, ${y}`);
+		this.tintSquare(x, y, this.fillColor);
+	}
+
+	clearSquare(x, y) {
+		// this.tintSquare(x, y, this.clearColor);
+		this.tintSquare(x, y, this.fillColor);
+	}
+
+	tintSquare(x, y, color) {
+		// this.squares[y][x].tint = color;
+		const square = this.getSquare(x, y);
+		if (color === this.fillColor) {
+			// console.log(`tintSquare(${x}, ${y}, ${color})`);
+			// console.log(`square: `, square);
+		}
+		// right now the squares are all Sprites
+		square.tint = color;
+	}
+
+	getSquare(x, y) {
+		return this.squares[y][x];	// TODO is this correct? or should it be [x][y] ?
 	}
 
 }

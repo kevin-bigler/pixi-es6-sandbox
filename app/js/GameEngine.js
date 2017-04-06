@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import Artist from './Artist.js';
 import GameBoard from './GameBoard.js';
+import LPiece from './Piece/LPiece.js';
 
 export default class GameEngine {
 	app = null
@@ -25,5 +26,9 @@ export default class GameEngine {
 
 		this.artist = new Artist(this.app);
 		this.artist.initialize({squaresWide, squaresHigh});
+
+
+		this.gameBoard.fillSquare(1, 1);
+		this.artist.drawSquares(this.gameBoard);
 	}
 }

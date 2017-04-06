@@ -2,42 +2,36 @@ import Piece from './Piece.js';
 
 export default class LPiece extends Piece {
 	dataByRotation =
-		[	// 0
-			{
+		[
+			{	// 0
 				width: 2,
-				height: 3
+				height: 3,
 				squares: [
 					[1,0]
 					[1,0]
 					[1,1]
 				]
 			},
-		],
-		[ // 1
-			{
+			{	// 1
 				width: 3,
-				height: 2
+				height: 2,
 				squares: [
 					[1,1,1]
 					[1,0,0]
 				]
 			},
-		],
-		[ // 2
-			{
+			{	// 2
 				width: 2,
-				height: 3
+				height: 3,
 				squares: [
 					[1,1]
 					[0,1]
 					[0,1]
 				]
 			},
-		],
-		[ // 3
-			{
+			{	// 3
 				width: 3,
-				height: 2
+				height: 2,
 				squares: [
 					[0,0,1]
 					[1,1,1]

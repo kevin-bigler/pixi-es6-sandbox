@@ -19,11 +19,28 @@ export default class Piece {
 
 	// use current rotation to set values (width, height, squares)
 	setPieceDataByRotation() {
-		({this.width, this.height, this.squares}) = this.getDataByRotation(this.rotation);
+		// ({this.width, this.height, this.squares}) = this.getDataByRotation(this.rotation);
+		({width, height, squares} = this.getDataByRotation(this.rotation));
+		this.width = width;
+		this.height = height;
+		this.squares = squares;
 	}
 
 	// returns an object with width, height, squares (array)
 	getDataByRotation(rotation) {
 		console.log('Piece getDataByRotation(); no functionality');
+	}
+
+	getSquare(x, y) {
+		// TODO safety check on range (both dimensions)
+		return this.squares[y][x];
+	}
+
+	squareIsOpen(x, y) {
+		const square = this.getSquare(x, y);
+		if (square === null)
+			return false;
+
+		return square === 0;
 	}
 }
