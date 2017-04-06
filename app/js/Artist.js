@@ -105,14 +105,19 @@ export default class Artist {
 	}
 
 	drawSquares(gameBoard) {
-		console.log('Artist.drawSquares()');
+		// console.log('Artist.drawSquares()');
+		// this.fillSquare(2, 1);
+		// this.clearSquare(2, 1);
+		// this.fillSquare(7, 7);
+		// this.clearSquare(0, 0);
+		// this.fillSquare(1, 9);
 		for (let x = 0; x < this.squaresWide; x++) {
 			for (let y = 0; y < this.squaresHigh; y++) {
 				// console.log(`iter: ${x}, ${y}`);
 				if (gameBoard.squareIsOpen(x, y)) {
 					this.clearSquare(x, y);
 				} else {
-					console.log(`found a square to be filled: ${x}, ${y}`);
+					// console.log(`found a square to be filled: ${x}, ${y}`);
 					this.fillSquare(x, y);
 				}
 			}
@@ -120,28 +125,31 @@ export default class Artist {
 	}
 
 	fillSquare(x, y) {
-		console.log('Artist.fillSquare()', `${x}, ${y}`);
+		// console.log('Artist.fillSquare()', `${x}, ${y}`);
 		this.tintSquare(x, y, this.fillColor);
 	}
 
 	clearSquare(x, y) {
-		// this.tintSquare(x, y, this.clearColor);
-		this.tintSquare(x, y, this.fillColor);
+		this.tintSquare(x, y, this.clearColor);
+		// if (x === 1 && y === 1) {
+		// 	console.log('called upon to clear 1,1');
+		// }
+		// this.tintSquare(x, y, this.fillColor);
 	}
 
 	tintSquare(x, y, color) {
 		// this.squares[y][x].tint = color;
 		const square = this.getSquare(x, y);
-		if (color === this.fillColor) {
+		// if (color === this.fillColor) {
 			// console.log(`tintSquare(${x}, ${y}, ${color})`);
 			// console.log(`square: `, square);
-		}
+		// }
 		// right now the squares are all Sprites
 		square.tint = color;
 	}
 
 	getSquare(x, y) {
-		return this.squares[y][x];	// TODO is this correct? or should it be [x][y] ?
+		return this.squares[y][x];
 	}
 
 }

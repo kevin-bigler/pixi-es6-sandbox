@@ -29,6 +29,15 @@ export default class GameEngine {
 
 
 		this.gameBoard.fillSquare(1, 1);
+		this.gameBoard.fillSquare(3, 7);
+		this.gameBoard.fillSquare(7, 10);
 		this.artist.drawSquares(this.gameBoard);
+
+		setTimeout(() => {
+			console.log('it has been 5 seconds');
+			this.gameBoard.fillSquare(2, 2);
+			this.gameBoard.getSquare(1, 1).clear();
+			this.artist.drawSquares(this.gameBoard);
+		}, 5000);
 	}
 }
