@@ -46,7 +46,7 @@ export default class GameEngine {
 
 		this.newPiece();
 
-		setTimeout(this.update.bind(this), 1000);
+		// setTimeout(this.update.bind(this), 1000);
 	}
 
 	newPiece() {
@@ -66,7 +66,7 @@ export default class GameEngine {
 		this.currentPosition = {
 			x:this.newPiecePosition.x,
 			y:this.newPiecePosition.y
-		}
+		};
 
 		this.drawSquares();
 
@@ -106,6 +106,15 @@ export default class GameEngine {
 	movePieceDown() {
 		this.removePiece();
 		this.currentPosition.y++;
+		this.addPiece();
+		this.drawSquares();
+	}
+
+	// normally this will not be allowed
+	// > it just seems useful for development
+	movePieceDown() {
+		this.removePiece();
+		this.currentPosition.y--;
 		this.addPiece();
 		this.drawSquares();
 	}
