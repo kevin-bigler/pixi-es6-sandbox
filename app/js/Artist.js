@@ -4,7 +4,7 @@ import Square from './SquareVisual.js';
 export default class Artist {
 
 	static appWidth = 800
-	static appHeight = 600
+	static appHeight = 500
 
 	lightGreen = 0x1fed04
 	white = 0xffffff
@@ -149,6 +149,7 @@ export default class Artist {
 	}
 
 	getSquare(x, y) {
+		// TODO add safety check on this (both dimensions)
 		return this.squares[y][x];
 	}
 

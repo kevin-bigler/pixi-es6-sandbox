@@ -2,14 +2,19 @@ import * as PIXI from 'pixi.js';
 import Artist from './Artist.js';
 import GameBoard from './GameBoard.js';
 import LPiece from './Piece/LPiece.js';
+import SquarePiece from './Piece/SquarePiece.js';
+import PieceFactory from './Piece/PieceFactory.js';
 
 export default class GameEngine {
 	app = null
 	artist = null
-	gameboard = null
+	gameBoard = null
 
 	squaresWide = 8
 	squaresHigh = 16
+
+	currentPiece = null
+	currentPosition = {x:0, y:0}
 
 	constructor() {
 
@@ -28,16 +33,33 @@ export default class GameEngine {
 		this.artist.initialize({squaresWide, squaresHigh});
 
 
-		this.gameBoard.fillSquare(1, 1);
-		this.gameBoard.fillSquare(3, 7);
-		this.gameBoard.fillSquare(7, 10);
+		// this.gameBoard.fillSquare(1, 1);
+		// this.gameBoard.fillSquare(3, 7);
+		// this.gameBoard.fillSquare(7, 10);
+		// let piece = new SquarePiece();
+		// let piece = new LPiece();
+		const pieceFactory = new PieceFactory();
+		let piece = pieceFactory.createRandomPiece();
+		// piece.rotate();
+		// piece.rotate();
+		// piece.rotate();
+		// piece.rotate();
+		this.gameBoard.addPiece({piece, x:0, y:0});
 		this.artist.drawSquares(this.gameBoard);
 
-		setTimeout(() => {
-			console.log('it has been 5 seconds');
-			this.gameBoard.fillSquare(2, 2);
-			this.gameBoard.getSquare(1, 1).clear();
-			this.artist.drawSquares(this.gameBoard);
-		}, 5000);
+		this.currentPiece = piece;
+		setTimeout(this.update.bind(this), 1000);
+	}
+
+	update() {
+		console.log('it has been 1 seconds');
+		this.gameBoard.removePiece({piece:this.currentPiece, x:0, y:0});
+		this.currentPiece.rotate();
+		this.gameBoard.addPiece({piece:this.currentPiece, x:0, y:0});
+		this.artist.drawSquares(this.gameBoard);
+		// setTimeout(this.update.bind(this), 1000);
+		// this.gameBoard.fillSquare(2, 2);
+		// this.gameBoard.getSquare(1, 1).clear();
+		// this.artist.drawSquares(this.gameBoard);
 	}
 }

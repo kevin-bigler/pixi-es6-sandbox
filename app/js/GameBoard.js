@@ -45,7 +45,7 @@ export default class GameBoard {
 		const boardSquaresForPiece = [];
 		for (let pieceX = 0; pieceX < piece.width; pieceX++) {
 			for (let pieceY = 0; pieceY < piece.height; pieceY++) {
-				if ( ! piece.squareIsOepn(pieceX, pieceY) ) {
+				if ( ! piece.squareIsOpen(pieceX, pieceY) ) {
 					const boardX = x + pieceX;
 					const boardY = y + pieceY;
 					const boardSquare = this.getSquare(boardX, boardY);
@@ -70,7 +70,7 @@ export default class GameBoard {
 
 	addPiece({piece, x, y}) {
 
-		if ( ! pieceCanFit({piece, x, y}) ) {
+		if ( ! this.pieceCanFit({piece, x, y}) ) {
 			console.error('piece cannot fit! cannot add piece to board.');
 			return;
 		}
@@ -86,6 +86,8 @@ export default class GameBoard {
 	pieceCanFit({piece, x, y}) {
 		// 1. Check if piece's corners fit into the game board
 		const pieceCorners = this.getPieceCorners({piece, x, y});
+
+		console.log('pieceCorners:', pieceCorners);
 
 		if ( ! this.isInRange(pieceCorners.topLeft) ) {
 			console.log('piece is being set out of range! culprit: topLeft');

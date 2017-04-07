@@ -7,18 +7,19 @@ export default class Piece {
 	rotation = 0	// 0, 1, 2, 3
 
 	constructor() {
-		setPieceDataByRotation();
+		// this.setPieceDataByRotation();
 	}
 
 	rotate() {
-		rotation++;
-		if (rotation > 3)
-			rotation = 0;
-		setPieceDataByRotation();
+		this.rotation++;
+		if (this.rotation > 3)
+			this.rotation = 0;
+		this.setPieceDataByRotation();
 	}
 
 	// use current rotation to set values (width, height, squares)
 	setPieceDataByRotation() {
+		let width, height, squares;
 		// ({this.width, this.height, this.squares}) = this.getDataByRotation(this.rotation);
 		({width, height, squares} = this.getDataByRotation(this.rotation));
 		this.width = width;
