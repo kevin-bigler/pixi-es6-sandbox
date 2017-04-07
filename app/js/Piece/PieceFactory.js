@@ -5,7 +5,9 @@ import LPiece from './LPiece.js';
 import JPiece from './JPiece.js';
 import SPiece from './SPiece.js';
 import ZPiece from './ZPiece.js';
+
 import RNG from '../Common/RNG.js';
+
 
 export default class PieceFactory {
 	pieceHistory = []

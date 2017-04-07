@@ -145,7 +145,7 @@ export default class GameBoard {
 	}
 	getSquare(x, y) {
 		if ( ! this.isInRange({x, y}) ) {
-			console.error('${x}, ${y} is out of bounds!');
+			console.error(`${x}, ${y} is out of bounds!`);
 			return null;
 		}
 		return this.squares[x][y];
