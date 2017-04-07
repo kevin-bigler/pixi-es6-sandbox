@@ -11,9 +11,7 @@ export default class InputManager {
 	}
 
 	startListening() {
-		console.log('InputManager.startListening()', this.listening);
 		this.listening = true;
-		console.log('value now: ', this.listening);
 	}
 
 	stopListening() {
@@ -21,8 +19,14 @@ export default class InputManager {
 	}
 
 	onKeyDown(event) {
-		let key = event.keyCode;
-		console.log('onKeyDown(), this.listening: ', this.listening);
+		const key = event.keyCode;
+
+		// keys that don't require listening === true
+		if (key === KeyCode.R) {
+			console.log('R');
+			this.gameEngine.newGame();
+		}
+
 		if ( ! this.listening ) {
 			console.log('not yet listening for inputs');
 			return;
@@ -52,11 +56,11 @@ export default class InputManager {
 			console.log('N');
 			this.gameEngine.newPiece();
 		}
-		else if (key === KeyCode.R) {
-			console.log('R');
-			this.gameEngine.newGame();
+		else if (key === KeyCode.G) {
+			console.log('G');
+			this.gameEngine.increaseGravity();
 		}
-		// TODO rest of the code
+
 	}
 
 	onKeyUp(key) {

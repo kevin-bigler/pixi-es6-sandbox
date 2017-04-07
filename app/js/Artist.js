@@ -32,15 +32,10 @@ export default class Artist {
 		this.squaresHigh = squaresHigh;
 
 		this.squareSize = this.calculateSquareSize({appWidth:Artist.appWidth, appHeight:Artist.appHeight, squaresWide, squaresHigh});
-		console.log(`squareSize calculated: ${this.squareSize}`);
+		// console.log(`squareSize calculated: ${this.squareSize}`);
 
 		this.initSquares();
 
-		// tintSquare(0, 0, lightGreen);
-
-		// TODO move this part to the GameEngine or something (wherever the data is handled for the squares and their states)
-		var tetrisShapes = ['I', 'S', 'Z', '3', 'E', 'L', 'J'];
-		this.drawTetrisShape(4, 1, 'I');
 	}
 
 	calculateSquareSize({appWidth, appHeight, squaresWide, squaresHigh}) {
@@ -54,6 +49,25 @@ export default class Artist {
 
 	initSquares() {
 
+		const gridWidth = this.squareSize * this.squaresWide;
+		const gridHeight = this.squareSize * this.squaresHigh;
+
+		// console.log(`gridWidth: ${gridWidth}, gridHeight: ${gridHeight}`);
+
+		// center the grid horizontally within our app stage area
+		// > so calculate left margin size
+		let leftMarginSize = Math.floor((Artist.appWidth - gridWidth) / 2);
+		if (leftMarginSize < 0)
+			leftMarginSize = 0;
+
+		// place the grid aligned to the bottom of our app stage area
+		// > so calculate top margin size
+		let topMarginSize = Math.floor(Artist.appHeight - gridHeight);
+		if (topMarginSize < 0)
+			topMarginSize = 0;
+
+		// console.log(`calculated margins. left: ${leftMarginSize}, top: ${topMarginSize}`);
+
 		// TODO change the squares to be of type Square (SquareVisual)
 		// also offload some of this logic per square to that class
 
@@ -61,11 +75,11 @@ export default class Artist {
 		this.squareTexture = square.generateTexture();
 
 		// draw the game board squares
-		for (var y = 0; y < this.squaresHigh; y++) {
+		for (let y = 0; y < this.squaresHigh; y++) {
 		  // do a row
 		  let row = [];
-		  for (var x = 0; x < this.squaresWide; x++) {
-		    let squareSprite = this.createSquareSprite(x * this.squareSize, y * this.squareSize, this.squareSize);
+		  for (let x = 0; x < this.squaresWide; x++) {
+		    let squareSprite = this.createSquareSprite(leftMarginSize + x * this.squareSize, topMarginSize + y * this.squareSize, this.squareSize);
 		    this.app.stage.addChild(squareSprite);
 		    row.push(squareSprite);
 		  }

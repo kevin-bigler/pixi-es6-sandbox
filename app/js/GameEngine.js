@@ -5,16 +5,18 @@ import LPiece from './Piece/LPiece.js';
 import SquarePiece from './Piece/SquarePiece.js';
 import PieceFactory from './Piece/PieceFactory.js';
 import InputManager from './InputManager.js';
+import Gravity from './Gravity.js';
 
 export default class GameEngine {
 	app = null
 	artist = null
 	gameBoard = null
+	inputManager = null
+	gravity = null
+	pieceFactory = null
 
 	squaresWide = 8
 	squaresHigh = 16
-
-	pieceFactory = null
 
 	newPiecePosition = {x:3, y:0}
 
@@ -26,7 +28,7 @@ export default class GameEngine {
 	}
 
 	initialize({squaresWide = this.squaresWide, squaresHigh = this.squaresHigh} = {}) {
-		console.log('GameEngine init', `squaresWide: ${squaresWide}, squaresHigh: ${squaresHigh}`);
+		// console.log('GameEngine init', `squaresWide: ${squaresWide}, squaresHigh: ${squaresHigh}`);
 
 		this.app = new PIXI.Application(Artist.appWidth, Artist.appHeight, {transparent : true});
 		document.getElementById('display').appendChild(this.app.view);
@@ -39,18 +41,25 @@ export default class GameEngine {
 
 		this.inputManager = new InputManager(this);
 
+		this.gravity = new Gravity(this);
+
 		this.pieceFactory = new PieceFactory();
 	}
 
 	newGame() {
+		// stop gravity
+		this.gravity.stopGravity();
+		this.gravity.resetGravity();
+
 		// clear the board, make a new piece
 		this.gameBoard.clear();
 		this.drawSquares();
 
 		this.newPiece();
 
-		console.log('told input manager to start listening');
 		this.inputManager.startListening();
+
+		this.gravity.startGravity();
 
 		// setTimeout(this.update.bind(this), 1000);
 	}
@@ -67,6 +76,9 @@ export default class GameEngine {
 
 		if ( ! pieceAddedSuccessfully ) {
 			console.log('GAME OVER!');
+			this.gravity.stopGravity();
+			this.inputManager.stopListening();
+			return;
 		}
 
 		this.currentPosition = {
@@ -80,12 +92,6 @@ export default class GameEngine {
 
 	drawSquares() {
 		this.artist.drawSquares(this.gameBoard);
-	}
-
-	update() {
-		console.log('it has been 1 seconds');
-		this.movePieceRight();
-		setTimeout(this.update.bind(this), 1000);
 	}
 
 	rotatePiece() {
@@ -126,7 +132,8 @@ export default class GameEngine {
 
 	movePieceDown() {
 		if ( ! this.canMovePieceDown() ) {
-			console.log('cannot move down');
+			console.log('cannot move down - new piece');
+			this.newPiece();
 			return;
 		}
 
@@ -240,6 +247,10 @@ export default class GameEngine {
 
 	addPiece() {
 		return this.gameBoard.addPiece({piece:this.currentPiece, x:this.currentPosition.x, y:this.currentPosition.y});
+	}
+
+	increaseGravity() {
+		this.gravity.increaseGravity();
 	}
 
 }

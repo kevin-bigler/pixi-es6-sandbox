@@ -28,7 +28,7 @@ export default class PieceFactory {
 		];
 		const classIndex = RNG.getRandomInt(0, classes.length);
 		const rotation = RNG.getRandomIntInclusive(0, 3);
-		console.log(`createRandomPiece(), classIndex: ${classIndex}, rotation: ${rotation}`);
+		// console.log(`createRandomPiece(), classIndex: ${classIndex}, rotation: ${rotation}`);
 
 		let clazz = classes[classIndex];
 		let piece = new clazz();
@@ -37,7 +37,7 @@ export default class PieceFactory {
 			piece.rotate();
 		}
 
-		console.log('piece created:', piece);
+		// console.log('piece created:', piece);
 
 		this.pieceHistory.push({
 			clazz,
