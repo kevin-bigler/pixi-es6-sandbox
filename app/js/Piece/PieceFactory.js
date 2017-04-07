@@ -1,5 +1,10 @@
-import LPiece from './LPiece.js';
+import IPiece from './IPiece.js';
 import SquarePiece from './SquarePiece.js';
+import EPiece from './EPiece.js';
+import LPiece from './LPiece.js';
+import JPiece from './JPiece.js';
+import SPiece from './SPiece.js';
+import ZPiece from './ZPiece.js';
 import RNG from '../Common/RNG.js';
 
 export default class PieceFactory {
@@ -11,8 +16,13 @@ export default class PieceFactory {
 
 	createRandomPiece() {
 		const classes = [
+			IPiece,
+			SquarePiece,
+			EPiece,
 			LPiece,
-			SquarePiece
+			JPiece,
+			SPiece,
+			ZPiece
 		];
 		const classIndex = RNG.getRandomInt(0, classes.length);
 		const rotation = RNG.getRandomIntInclusive(0, 3);
@@ -33,6 +43,10 @@ export default class PieceFactory {
 		});
 
 		return piece;
+	}
+
+	reset() {
+		this.pieceHistory = [];
 	}
 
 }

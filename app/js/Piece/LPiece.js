@@ -1,48 +1,47 @@
 import Piece from './Piece.js';
 
 export default class LPiece extends Piece {
-	dataByRotation = []
+	dataByRotation =
+		[
+			{	// 0
+				width: 2,
+				height: 3,
+				squares: [
+					[1,0],
+					[1,0],
+					[1,1]
+				]
+			},
+			{	// 1
+				width: 3,
+				height: 2,
+				squares: [
+					[1,1,1],
+					[1,0,0]
+				]
+			},
+			{	// 2
+				width: 2,
+				height: 3,
+				squares: [
+					[1,1],
+					[0,1],
+					[0,1]
+				]
+			},
+			{	// 3
+				width: 3,
+				height: 2,
+				squares: [
+					[0,0,1],
+					[1,1,1]
+				]
+			}
+		];
+
 	constructor() {
 		super();
-		this.dataByRotation =
-			[
-				{	// 0
-					width: 2,
-					height: 3,
-					squares: [
-						[1,0],
-						[1,0],
-						[1,1]
-					]
-				},
-				{	// 1
-					width: 3,
-					height: 2,
-					squares: [
-						[1,1,1],
-						[1,0,0]
-					]
-				},
-				{	// 2
-					width: 2,
-					height: 3,
-					squares: [
-						[1,1],
-						[0,1],
-						[0,1]
-					]
-				},
-				{	// 3
-					width: 3,
-					height: 2,
-					squares: [
-						[0,0,1],
-						[1,1,1]
-					]
-				},
-			];
-
-			super.setPieceDataByRotation();
+		this.setPieceDataByRotation();
 	}
 
 	getDataByRotation(rotation) {

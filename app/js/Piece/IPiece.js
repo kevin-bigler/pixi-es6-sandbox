@@ -1,38 +1,40 @@
 import Piece from './Piece.js';
 
-export default class SquarePiece extends Piece {
+export default class IPiece extends Piece {
 	dataByRotation =
 		[
 			{	// 0
-				width: 2,
-				height: 2,
+				width: 1,
+				height: 4,
 				squares: [
-					[1,1],
-					[1,1]
+					[1],
+					[1],
+					[1],
+					[1]
 				]
 			},
 			{	// 1
-				width: 2,
-				height: 2,
+				width: 4,
+				height: 1,
 				squares: [
-					[1,1],
-					[1,1]
+					[1,1,1,1]
 				]
 			},
 			{	// 2
-				width: 2,
-				height: 2,
+				width: 1,
+				height: 4,
 				squares: [
-					[1,1],
-					[1,1]
+					[1],
+					[1],
+					[1],
+					[1]
 				]
 			},
 			{	// 3
-				width: 2,
-				height: 2,
+				width: 4,
+				height: 1,
 				squares: [
-					[1,1],
-					[1,1]
+					[1,1,1,1]
 				]
 			}
 		];
@@ -50,4 +52,5 @@ export default class SquarePiece extends Piece {
 
 		return this.dataByRotation[rotation];
 	}
+
 }

@@ -68,11 +68,12 @@ export default class GameBoard {
 		});
 	}
 
+	// returns true if successful (piece fit), returns false if piece could not fit
 	addPiece({piece, x, y}) {
 
 		if ( ! this.pieceCanFit({piece, x, y}) ) {
 			console.error('piece cannot fit! cannot add piece to board.');
-			return;
+			return false;
 		}
 
 		// check piece's squares data (0's and 1's) and set the corresponding squares' data for this.squares
@@ -81,13 +82,13 @@ export default class GameBoard {
 			if (info.boardSquare !== null)
 				info.boardSquare.fill();
 		});
+
+		return true;
 	}
 
 	pieceCanFit({piece, x, y}) {
 		// 1. Check if piece's corners fit into the game board
 		const pieceCorners = this.getPieceCorners({piece, x, y});
-
-		console.log('pieceCorners:', pieceCorners);
 
 		if ( ! this.isInRange(pieceCorners.topLeft) ) {
 			console.log('piece is being set out of range! culprit: topLeft');
@@ -148,5 +149,15 @@ export default class GameBoard {
 			return null;
 		}
 		return this.squares[x][y];
+	}
+
+	clear() {
+		for (let x = 0; x < this.squaresWide; x++) {
+			for (let y = 0; y < this.squaresHigh; y++) {
+				const square = this.getSquare(x, y);
+				if (square !== null)
+					square.clear();
+			}
+		}
 	}
 }

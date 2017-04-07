@@ -15,3 +15,4 @@ console.log('');
 
 const gameEngine = new GameEngine();
 gameEngine.initialize();
+gameEngine.newGame();
