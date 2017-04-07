@@ -4,6 +4,7 @@ import GameBoard from './GameBoard.js';
 import LPiece from './Piece/LPiece.js';
 import SquarePiece from './Piece/SquarePiece.js';
 import PieceFactory from './Piece/PieceFactory.js';
+import InputManager from './InputManager.js';
 
 export default class GameEngine {
 	app = null
@@ -36,6 +37,8 @@ export default class GameEngine {
 		this.artist = new Artist(this.app);
 		this.artist.initialize({squaresWide, squaresHigh});
 
+		this.inputManager = new InputManager(this);
+
 		this.pieceFactory = new PieceFactory();
 	}
 
@@ -45,6 +48,9 @@ export default class GameEngine {
 		this.drawSquares();
 
 		this.newPiece();
+
+		console.log('told input manager to start listening');
+		this.inputManager.startListening();
 
 		// setTimeout(this.update.bind(this), 1000);
 	}
@@ -83,6 +89,11 @@ export default class GameEngine {
 	}
 
 	rotatePiece() {
+		if ( ! this.canRotatePiece() ) {
+			console.log('cannot rotate');
+			return;
+		}
+
 		this.removePiece();
 		this.currentPiece.rotate();
 		this.addPiece();
@@ -90,6 +101,11 @@ export default class GameEngine {
 	}
 
 	movePieceLeft() {
+		if ( ! this.canMovePieceLeft() ) {
+			console.log('cannot move left');
+			return;
+		}
+
 		this.removePiece();
 		this.currentPosition.x--;
 		this.addPiece();
@@ -97,6 +113,11 @@ export default class GameEngine {
 	}
 
 	movePieceRight() {
+		if ( ! this.canMovePieceRight() ) {
+			console.log('cannot move right');
+			return;
+		}
+
 		this.removePiece();
 		this.currentPosition.x++;
 		this.addPiece();
@@ -104,6 +125,11 @@ export default class GameEngine {
 	}
 
 	movePieceDown() {
+		if ( ! this.canMovePieceDown() ) {
+			console.log('cannot move down');
+			return;
+		}
+
 		this.removePiece();
 		this.currentPosition.y++;
 		this.addPiece();
@@ -112,11 +138,100 @@ export default class GameEngine {
 
 	// normally this will not be allowed
 	// > it just seems useful for development
-	movePieceDown() {
+	movePieceUp() {
+		if ( ! this.canMovePieceUp() ) {
+			console.log('cannot move up');
+			return;
+		}
+
 		this.removePiece();
 		this.currentPosition.y--;
 		this.addPiece();
 		this.drawSquares();
+	}
+
+	canRotatePiece() {
+		this.removePiece();	// temporarily remove the piece to simulate it moving
+		this.currentPiece.rotate();
+		if ( this.gameBoard.pieceCanFit(
+			{
+				piece: this.currentPiece,
+				x: this.currentPosition.x,
+				y: this.currentPosition.y
+			})
+		) {
+			this.currentPiece.unrotate();
+			this.addPiece();
+			return true;
+		} else {
+			this.currentPiece.unrotate();
+			this.addPiece();
+			return false;
+		}
+	}
+
+	canMovePieceLeft() {
+		this.removePiece();
+
+		const canFit = this.gameBoard.pieceCanFit(
+			{
+				piece: this.currentPiece,
+				x: this.currentPosition.x - 1,
+				y: this.currentPosition.y
+			}
+		);
+
+		this.addPiece();
+
+		return canFit;
+	}
+
+	canMovePieceRight() {
+		this.removePiece();
+
+		const canFit = this.gameBoard.pieceCanFit(
+			{
+				piece: this.currentPiece,
+				x: this.currentPosition.x + 1,
+				y: this.currentPosition.y
+			}
+		);
+
+		this.addPiece();
+
+		return canFit;
+	}
+
+	canMovePieceDown() {
+		this.removePiece();
+
+		const canFit = this.gameBoard.pieceCanFit(
+			{
+				piece: this.currentPiece,
+				x: this.currentPosition.x,
+				y: this.currentPosition.y + 1
+			}
+		);
+
+		this.addPiece();
+
+		return canFit;
+	}
+
+	canMovePieceUp() {
+		this.removePiece();
+
+		const canFit = this.gameBoard.pieceCanFit(
+			{
+				piece: this.currentPiece,
+				x: this.currentPosition.x,
+				y: this.currentPosition.y - 1
+			}
+		);
+
+		this.addPiece();
+
+		return canFit;
 	}
 
 	removePiece() {

@@ -17,6 +17,13 @@ export default class Piece {
 		this.setPieceDataByRotation();
 	}
 
+	unrotate() {
+		this.rotation--;
+		if (this.rotation < 0)
+			this.rotation = 3;
+		this.setPieceDataByRotation();
+	}
+
 	// use current rotation to set values (width, height, squares)
 	setPieceDataByRotation() {
 		let width, height, squares;
