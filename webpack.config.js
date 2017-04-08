@@ -20,7 +20,8 @@ module.exports = {
         exclude: /(node_modules)/,
         loader: 'babel-loader',
         query: {
-            presets: ['es2015', 'stage-2']
+          plugins: ['lodash'],
+          presets: ['es2015', 'stage-2']
         }
       }
       // {

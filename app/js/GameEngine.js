@@ -133,6 +133,7 @@ export default class GameEngine {
 	movePieceDown() {
 		if ( ! this.canMovePieceDown() ) {
 			console.log('cannot move down - new piece');
+			this.updateCompletions();
 			this.newPiece();
 			return;
 		}
@@ -251,6 +252,10 @@ export default class GameEngine {
 
 	increaseGravity() {
 		this.gravity.increaseGravity();
+	}
+
+	updateCompletions() {
+		this.gameBoard.detectCompletions();
 	}
 
 }

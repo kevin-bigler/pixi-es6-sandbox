@@ -15,4 +15,7 @@ export default class SquareData {
 	fill() {
 		this.state = 1;
 	}
+	copy(otherSquare) {
+		this.state = otherSquare.state;
+	}
 }
